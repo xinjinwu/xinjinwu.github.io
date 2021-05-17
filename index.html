@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Awesome-pyecharts</title>
+    <title>Commonwealth Games Venue RAG Score</title>
             <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
         <script type="text/javascript" src="https://assets.pyecharts.org/assets/maps/United_Kingdom.js"></script>
 
@@ -10,8 +10,18 @@
 <body>
     <div id="set_geo" class="chart-container" style="width:1300px; height:700px;"></div>
     <script>
+        var MapContainer = document.getElementById('set_geo');
+//用于使chart自适应高度和宽度,通过窗体高宽计算容器高宽
+        var resizeMapContainer = function () {
+            MapContainer.style.width = window.innerWidth-20+'px';
+            MapContainer.style.height = window.innerHeight-20+'px';
+        };
+//设置容器高宽
+        resizeMapContainer();
+// 基于准备好的dom，初始化echarts实例
+
         var chart_set_geo = echarts.init(
-            document.getElementById('set_geo'), 'white', {renderer: 'canvas'});
+            MapContainer, 'white', {renderer: 'canvas'});
             var data = new Array();
             var picr = new Array();
             var picy = new Array();
@@ -526,16 +536,22 @@
 };
         chart_set_geo.setOption(option_set_geo);
 
+        window.onresize = function () {
+    //重置容器高宽
+           resizeMapContainer();
+           chart_set_geo.resize();
+        };
+
 /*        function fn(){
-            var height=document.getElementById("divID").offsetHeight
-            var width=document.getElementById("divID").offsetWidth
+            var height=document.getElementById("set_geo").window.outerHeight
+            var width=document.getElementById("set_geo").window.outerWidth
         };
         fn();
         window.onresize = function () {//用于使chart自适的方法  
             fn ();//重置容器高宽
             chart_set_geo.resize();
         }*/
-        window.onresize = chart_set_ge.resize;
+//        window.onresize = chart_set_geo.resize;
     </script>
 </body>
 </html>
